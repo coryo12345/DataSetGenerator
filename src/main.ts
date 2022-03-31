@@ -24,6 +24,14 @@ import InputSwitch from "primevue/inputswitch";
 app.component("InputSwitch", InputSwitch);
 import Slider from "primevue/slider";
 app.component("Slider", Slider);
+import Dialog from "primevue/dialog";
+app.component("Dialog", Dialog);
+import ScrollPanel from "primevue/scrollpanel";
+app.component("ScrollPanel", ScrollPanel);
+import RadioButton from "primevue/radiobutton";
+app.component("RadioButton", RadioButton);
+import InputText from "primevue/inputtext";
+app.component("InputText", InputText);
 
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";

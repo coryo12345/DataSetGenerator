@@ -1,16 +1,25 @@
-export interface Column {
+import { DataType } from "./DataTypes";
+
+export interface IColumn {
   dataType: DataType;
-  field: string;
-  header: string;
-  sortable: boolean;
+  displayName: string;
+  internalId: string;
 }
 
-// These will correspond to faker.js generated items
-export enum DataType {
-  firstName,
-  lastName,
-  middleName,
-  fullName,
-  gender,
-  phoneNumber,
+export class Column implements IColumn {
+  dataType: DataType;
+  displayName: string;
+  internalId: string;
+
+  constructor(dataType: DataType, displayName: string) {
+    this.dataType = dataType;
+    this.displayName = displayName;
+    this.internalId = getUID();
+  }
+}
+
+// internal ID counter for Column class
+var idCounter = 0;
+function getUID(): string {
+  return (idCounter++).toString();
 }

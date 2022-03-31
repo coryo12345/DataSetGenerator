@@ -1,9 +1,34 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useDataStore } from "../store";
+// need to rename import since we use a component called 'Column'
+import * as CT from "../types/Columns"; // ColumnTypes
+
+const dataStore = useDataStore();
+
 const dtRef = ref({});
 function exportCSV() {
   (dtRef.value as any).exportCSV();
 }
+
+const data = ref([] as any[]);
+
+function generateData(newCols: CT.Column[], count: number): void {
+  const newData = [];
+  for (let i = 0; i < count; i++) {
+    const row = {} as any;
+    newCols.forEach((col) => {
+      row[col.internalId] = col.dataType.func();
+    });
+    newData.push(row);
+  }
+  data.value = newData;
+}
+
+const cols = computed(() => {
+  generateData(dataStore.columns, dataStore.rowCount);
+  return dataStore.columns;
+});
 </script>
 
 <template>
@@ -12,7 +37,7 @@ function exportCSV() {
     <template #content>
       <DataTable
         ref="dtRef"
-        :value="[{ name: 'asd' }]"
+        :value="data"
         :paginator="true"
         :rows="10"
         paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
@@ -31,7 +56,12 @@ function exportCSV() {
             <!-- todo: search -->
           </div>
         </template>
-        <Column field="name" header="Name" :sortable="true"></Column>
+        <Column
+          v-for="col in cols"
+          :field="col.internalId"
+          :key="col.internalId"
+          :header="col.displayName"
+        ></Column>
       </DataTable>
     </template>
   </Card>
