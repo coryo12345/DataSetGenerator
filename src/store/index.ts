@@ -14,12 +14,8 @@ export const useDataStore = defineStore({
       rowCount: 5 as number,
       columns: [
         new Column(
-          definedTypes.find((x) => x.ftype === EDataType.firstName) as DataType,
-          "First Name"
-        ),
-        new Column(
-          definedTypes.find((x) => x.ftype === EDataType.lastName) as DataType,
-          "Last Name"
+          definedTypes.find((x) => x.ftype === EDataType.fullName) as DataType,
+          "Name"
         ),
         new Column(
           definedTypes.find(
