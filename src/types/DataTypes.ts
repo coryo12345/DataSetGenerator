@@ -22,6 +22,22 @@ export enum EDataType {
   color = "Color",
   price = "Price",
   product = "Product",
+  companyName = "Company Name",
+  pastDate = "Past Date",
+  futureDate = "Future Date",
+  domainName = "Domain Name",
+  email = "E-mail",
+  username = "Username",
+  password = "Password",
+  ip = "IP Address",
+  mac = "Mac Address",
+  sentence = "Sentence",
+  musicGenre = "Music Genre",
+  vehicle = "Vehicle",
+  vin = "VIN",
+  uuid = "UUID",
+  word = "Word",
+  filename = "Filename",
 }
 
 export interface DataType {
@@ -30,7 +46,6 @@ export interface DataType {
 }
 
 // define types
-// TODO: add more
 export const definedTypes: DataType[] = [
   { ftype: EDataType.firstName, func: faker.name.firstName },
   { ftype: EDataType.lastName, func: faker.name.lastName },
@@ -56,4 +71,20 @@ export const definedTypes: DataType[] = [
   { ftype: EDataType.color, func: faker.commerce.color },
   { ftype: EDataType.price, func: faker.commerce.price },
   { ftype: EDataType.product, func: faker.commerce.productName },
-];
+  { ftype: EDataType.companyName, func: faker.company.companyName },
+  { ftype: EDataType.pastDate, func: faker.date.past },
+  { ftype: EDataType.futureDate, func: faker.date.future },
+  { ftype: EDataType.domainName, func: faker.internet.domainName },
+  { ftype: EDataType.email, func: faker.internet.email },
+  { ftype: EDataType.username, func: faker.internet.userName },
+  { ftype: EDataType.password, func: faker.internet.password },
+  { ftype: EDataType.ip, func: faker.internet.ipv4 },
+  { ftype: EDataType.mac, func: faker.internet.mac },
+  { ftype: EDataType.sentence, func: faker.lorem.sentence },
+  { ftype: EDataType.musicGenre, func: faker.music.genre },
+  { ftype: EDataType.vehicle, func: faker.vehicle.vehicle },
+  { ftype: EDataType.vin, func: faker.vehicle.vin },
+  { ftype: EDataType.uuid, func: faker.datatype.uuid },
+  { ftype: EDataType.word, func: faker.random.word },
+  { ftype: EDataType.filename, func: faker.system.commonFileName },
+].sort((a, b) => a.ftype.localeCompare(b.ftype));

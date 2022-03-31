@@ -15,7 +15,7 @@ const amount = computed({
   },
 });
 
-const _genMultiple = ref(false);
+const _genMultiple = ref(true);
 const genMultiple = computed({
   get() {
     return _genMultiple.value;
@@ -36,7 +36,7 @@ const genMultiple = computed({
   <span v-if="genMultiple" class="flex align-items-center">
     <Slider
       v-model="amount"
-      :min="1"
+      :min="2"
       :max="100"
       :step="1"
       class="inline-block fill mx-4"
