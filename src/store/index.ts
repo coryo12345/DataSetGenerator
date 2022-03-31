@@ -11,7 +11,7 @@ export const useDataStore = defineStore({
   id: "dataStore",
   state: () =>
     ({
-      rowCount: 5 as number,
+      rowCount: 10 as number,
       columns: [
         new Column(
           definedTypes.find((x) => x.ftype === EDataType.fullName) as DataType,

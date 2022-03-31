@@ -36,9 +36,9 @@ const genMultiple = computed({
   <span v-if="genMultiple" class="flex align-items-center">
     <Slider
       v-model="amount"
-      :min="2"
-      :max="100"
-      :step="1"
+      :min="10"
+      :max="1000"
+      :step="10"
       class="inline-block fill mx-4"
     />
     <span class="flex flex-column">

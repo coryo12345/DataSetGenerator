@@ -22,4 +22,10 @@ body {
   min-height: 100vh;
   min-width: 100vw;
 }
+
+// Fixes white background for Mac browsers where you
+//    can scroll outside the body temporarily
+html {
+  background-color: $background;
+}
 </style>

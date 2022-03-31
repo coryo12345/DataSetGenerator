@@ -3,6 +3,7 @@ import { computed, ref } from "vue";
 import { useDataStore } from "../store";
 import { Column } from "../types/Columns";
 import AddColumnDialog from "./AddColumnDialog.vue";
+import draggable from "vuedraggable";
 
 const dataStore = useDataStore();
 
@@ -30,25 +31,26 @@ function addColumn() {
 
 <template>
   <h3>Customize Columns</h3>
-  <!-- Current Columns TODO: make this draggable for order -->
-  <ul class="pl-0">
-    <li v-for="(col, idx) in cols" :key="idx" class="mb-2">
-      <Card>
+  <!-- Current Columns -->
+  <draggable v-model="cols">
+    <template #item="{ element, index }">
+      <Card class="mb-2">
         <template #content>
-          <strong class="mr-2">{{ col.displayName }}</strong>
-          <span class="sub-text mr-2">Type: {{ col.dataType.ftype }}</span>
+          <i class="pi pi-ellipsis-v grabbable"></i>
+          <strong class="mr-2">{{ element.displayName }}</strong>
+          <span class="sub-text mr-2">Type: {{ element.dataType.ftype }}</span>
           <i
-            class="pi pi-trash"
+            class="pi pi-trash iclick"
             @click="
               () => {
-                removeColumn(idx);
+                removeColumn(index);
               }
             "
           ></i>
         </template>
       </Card>
-    </li>
-  </ul>
+    </template>
+  </draggable>
   <!-- Add A Column -->
   <Button
     class="fit p-button-raised p-button-rounded"
@@ -63,8 +65,7 @@ function addColumn() {
   max-width: fit-content;
 }
 
-li {
-  list-style: none;
+.p-card {
   max-width: fit-content;
 }
 
@@ -72,12 +73,17 @@ li {
   min-height: 2em;
 }
 
-i {
+.grabbable {
+  cursor: pointer;
+  width: 2em;
+}
+
+.iclick {
   border-radius: 50%;
   padding: 0.5em;
 }
 
-i:hover {
+.iclick:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.25);
 }
