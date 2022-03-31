@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useDataStore } from "../store";
 import { Column } from "../types/Columns";
 import { definedTypes, DataType } from "../types/DataTypes";
@@ -22,6 +22,18 @@ const dataStore = useDataStore();
 // data
 const name = ref("");
 const columnType = ref("");
+const filterText = ref("");
+const filteredTypes = computed(() => {
+  return filterText.value.length
+    ? definedTypes.filter((x) =>
+        x.ftype.toLowerCase().includes(filterText.value.toLowerCase())
+      )
+    : definedTypes;
+});
+
+const saveAllowed = computed((): boolean => {
+  return name.value.length > 0 && columnType.value.length > 0;
+});
 
 function addCol() {
   const col = new Column(
@@ -48,25 +60,46 @@ function addCol() {
       <h3>Add A Column</h3>
     </template>
     <!-- Column name selection -->
-    <div class="p-float-label mt-4">
-      <InputText type="text" v-model="name" name="dname"></InputText>
+    <div class="p-float-label mt-4 w-full">
+      <InputText
+        type="text"
+        v-model="name"
+        name="dname"
+        class="w-full"
+      ></InputText>
       <label for="dname">Display Name</label>
     </div>
-    <!-- Column Type Selection -->
-    <ScrollPanel class="mt-2 h-10rem">
-      <div v-for="dtype in definedTypes" :key="dtype.ftype" class="ml-2 my-3">
-        <RadioButton
-          :name="dtype.ftype"
-          :value="dtype.ftype"
-          v-model="columnType"
-          class="mr-2"
-        />
-        <label :for="dtype.ftype">{{ dtype.ftype }}</label>
+    <div class="group-border mt-4">
+      <!-- Filter types -->
+      <div class="p-float-label w-full">
+        <InputText
+          type="text"
+          v-model="filterText"
+          name="filter"
+          class="w-full"
+        ></InputText>
+        <label for="filter">Filter Types</label>
       </div>
-    </ScrollPanel>
+      <!-- Column Type Selection -->
+      <ScrollPanel class="mt-1 h-10rem">
+        <div
+          v-for="dtype in filteredTypes"
+          :key="dtype.ftype"
+          class="ml-2 my-3"
+        >
+          <RadioButton
+            :name="dtype.ftype"
+            :value="dtype.ftype"
+            v-model="columnType"
+            class="mr-2"
+          />
+          <label :for="dtype.ftype">{{ dtype.ftype }}</label>
+        </div>
+      </ScrollPanel>
+    </div>
     <!-- Save -->
     <template #footer>
-      <Button @click="addCol" label="Add"></Button>
+      <Button @click="addCol" label="Add" :disabled="!saveAllowed"></Button>
     </template>
   </Dialog>
 </template>
@@ -81,6 +114,10 @@ function addCol() {
 
   .p-scrollpanel-bar {
     opacity: 1 !important;
+  }
+
+  .group-border {
+    border: 1px solid #eee;
   }
 }
 </style>

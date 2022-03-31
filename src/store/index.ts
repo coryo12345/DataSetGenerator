@@ -21,6 +21,12 @@ export const useDataStore = defineStore({
           definedTypes.find((x) => x.ftype === EDataType.lastName) as DataType,
           "Last Name"
         ),
+        new Column(
+          definedTypes.find(
+            (x) => x.ftype === EDataType.streetAddress
+          ) as DataType,
+          "Street Address"
+        ),
       ],
     } as RootState),
   getters: {},

@@ -53,7 +53,7 @@ const cols = computed(() => {
               label="Export"
               @click="exportCSV()"
             />
-            <!-- todo: search -->
+            <!-- TODO: search -->
           </div>
         </template>
         <Column
