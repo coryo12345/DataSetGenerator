@@ -1,2 +1,3 @@
 #!/bin/sh
-docker run -d -v $(pwd):/root/app --name datasetgenerator --restart always node:16 /root/app/start.sh
+docker build -t datasetgenerator .
+docker run -d --name datasetgenerator --restart always datasetgenerator
