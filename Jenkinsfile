@@ -16,7 +16,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                sh 'docker stop datasetgenerator && docker rm datasetgenerator'
+                sh 'docker stop datasetgenerator || true'
+                sh 'docker rm datasetgenerator || true'
                 sh 'docker run -d --name datasetgenerator \
                     --restart always \
                     --network webnetwork \
