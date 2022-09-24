@@ -20,8 +20,8 @@ pipeline {
                 sh 'docker rm datasetgenerator || true'
                 sh 'docker run -d --name datasetgenerator \
                     --restart always \
+                    --network=webnetwork \
                     datasetgenerator'
-                sh 'docker network connect webnetwork datasetgenerator || true'
             }
         }
     }
